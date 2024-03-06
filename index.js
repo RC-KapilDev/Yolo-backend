@@ -110,5 +110,5 @@ app.get("/rooms", async (req, res) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Listening at Port ${Port}`);
+  console.log(`Listening at Port ${PORT}`);
 });
