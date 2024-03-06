@@ -108,6 +108,6 @@ app.get("/rooms", async (req, res) => {
   }
 });
 
-app.listen(Port, () => {
+app.listen(Port, "0.0.0.0", () => {
   console.log(`Listening at Port ${Port}`);
 });
