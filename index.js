@@ -97,7 +97,7 @@ async function createRoom() {
   }
 }
 
-createRoom();
+// createRoom();
 
 app.get("/rooms", async (req, res) => {
   try {
