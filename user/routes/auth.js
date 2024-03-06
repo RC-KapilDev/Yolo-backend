@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import auth from "../middleware/auth.js";
-const authRoute = express.Router();
+const authRouter = express.Router();
 
 //signUp
 //1. Extract user input and destructureing
@@ -13,11 +13,11 @@ const authRoute = express.Router();
 //5. Throw any error
 //6. connect to Clinet Side
 
-authRoute.get("/test", async (req, res) => {
+authRouter.get("/test", async (req, res) => {
   return res.send("it is working");
 });
 
-authRoute.post("/signup", async (req, res) => {
+authRouter.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
@@ -44,7 +44,7 @@ authRoute.post("/signup", async (req, res) => {
 
 // Sign in part
 
-authRoute.post("/signin", async (req, res) => {
+authRouter.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -91,4 +91,4 @@ authRouter.get("/", auth, async (req, res) => {
   res.json({ ...user._doc, token: req.token });
 });
 
-export default authRoute;
+export default authRouter;

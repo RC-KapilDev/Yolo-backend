@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
-const Port = 3000;
+
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 const DB =
@@ -108,6 +109,6 @@ app.get("/rooms", async (req, res) => {
   }
 });
 
-app.listen(Port, "0.0.0.0", () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Listening at Port ${Port}`);
 });
