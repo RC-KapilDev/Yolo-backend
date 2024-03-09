@@ -45,7 +45,7 @@ reservationRouter.delete("/:roomid", async (req, res) => {
     if (!delreservation) {
       res.send(404).send("Rervation not Found");
     }
-    res.send(delreservation);
+    res.json(delreservation);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
