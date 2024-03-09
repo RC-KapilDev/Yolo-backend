@@ -36,7 +36,8 @@ async function createRoom() {
 
 roomRouter.get("/rooms", async (req, res) => {
   try {
-    const rooms = await Rooms.find({}).select("-_id");
+    const rooms = await Rooms.find({});
+    // .select("-_id")
     res.json(rooms);
   } catch (err) {
     console.error(err);

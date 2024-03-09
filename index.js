@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { roomRouter } from "./routes/room.js";
 import { authRouter } from "./routes/auth.js";
+import { reservationRouter } from "./routes/reservation.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -16,6 +17,7 @@ mongoose
 app.use(express.json());
 app.use("/yolo", roomRouter);
 app.use(authRouter);
+app.use("/res", reservationRouter);
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Listening at Port ${PORT}`);

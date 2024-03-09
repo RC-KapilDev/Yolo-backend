@@ -19,7 +19,20 @@ const validAmenities = [
 const roomType = ["basic", "medium", "premium", "luxury"];
 const sex = ["male", "female", "unisex"];
 
-const roomSchema = new mongoose.Schema({
+const reservationSchema = new mongoose.Schema({
+  email: {
+    required: true,
+    type: String,
+    trim: true,
+    validate: {
+      validator: (value) => {
+        const re =
+          /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        return value.match(re);
+      },
+      message: "Please enter a valid email address",
+    },
+  },
   roomtype: {
     type: String,
     required: true,
@@ -58,14 +71,18 @@ const roomSchema = new mongoose.Schema({
   },
 });
 
-const Rooms = mongoose.model("Room", roomSchema);
+const Reservation = mongoose.model("Reservation", reservationSchema);
 
-function validateRooms(room) {
+function validateReservation(room) {
   const schema = Joi.object({
-    roomType: Joi.string()
+    email: Joi.string().email().required(),
+    roomtype: Joi.string()
       .required()
       .valid(...roomType),
-    location: Joi.array().required().min(1).items(Joi.string().min(5).required),
+    location: Joi.array()
+      .required()
+      .min(1)
+      .items(Joi.string().min(5).required()),
     sex: Joi.string()
       .required()
       .valid(...sex),
@@ -80,6 +97,7 @@ function validateRooms(room) {
     address: Joi.string().min(20).required(),
     image: Joi.array().required().items(Joi.string().uri().required()),
   });
+  return schema.validate(room);
 }
 
-export { Rooms, validateRooms };
+export { Reservation, validateReservation };
