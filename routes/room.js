@@ -47,7 +47,7 @@ roomRouter.get("/rooms", async (req, res) => {
 roomRouter.post("/room", async (req, res) => {
   const { error } = validateRooms(req.body);
   if (error) {
-    res.status(400).send(error.details[0].message);
+    res.status(400).json({ message: error.details[0].message });
   }
 
   let roomdetails = new Rooms({
@@ -64,7 +64,7 @@ roomRouter.post("/room", async (req, res) => {
     roomdetails = await roomdetails.save();
     res.status(200).json(roomdetails);
   } catch (err) {
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "server Error" });
   }
 });
 
