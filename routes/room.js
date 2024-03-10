@@ -1,4 +1,4 @@
-import { Rooms } from "../models/room.js";
+import { Rooms, validateRooms } from "../models/room.js";
 import express from "express";
 
 const roomRouter = express.Router();
@@ -42,6 +42,29 @@ roomRouter.get("/rooms", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.send(500).json({ message: "INternal Server Error" });
+  }
+});
+roomRouter.post("/room", async (req, res) => {
+  const { error } = validateRooms(req.body);
+  if (error) {
+    res.status(400).json(error.details[0].message);
+  }
+
+  let roomdetails = new Rooms({
+    roomtype: req.body.roomtype,
+    location: req.body.location,
+    sex: req.body.sex,
+    amenities: req.body.amenities,
+    rent: req.body.rent,
+    address: req.body.address,
+    image: req.body.image,
+  });
+
+  try {
+    roomdetails = await roomdetails.save();
+    res.status(200).json(roomdetails);
+  } catch (err) {
+    res.status(500).json("Internal Server Error");
   }
 });
 

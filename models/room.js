@@ -62,10 +62,13 @@ const Rooms = mongoose.model("Room", roomSchema);
 
 function validateRooms(room) {
   const schema = Joi.object({
-    roomType: Joi.string()
+    roomtype: Joi.string()
       .required()
       .valid(...roomType),
-    location: Joi.array().required().min(1).items(Joi.string().min(5).required),
+    location: Joi.array()
+      .required()
+      .min(1)
+      .items(Joi.string().min(2).required()),
     sex: Joi.string()
       .required()
       .valid(...sex),
@@ -80,6 +83,7 @@ function validateRooms(room) {
     address: Joi.string().min(20).required(),
     image: Joi.array().required().items(Joi.string().uri().required()),
   });
+  return schema.validate(room);
 }
 
 export { Rooms, validateRooms };
