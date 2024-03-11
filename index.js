@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { roomRouter } from "./routes/room.js";
 import { authRouter } from "./routes/auth.js";
 import { reservationRouter } from "./routes/reservation.js";
+import { roomCheckRouter } from "./routes/roomCheck.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -16,6 +17,7 @@ mongoose
 
 app.use(express.json());
 app.use("/yolo", roomRouter);
+app.use("/validate", roomCheckRouter);
 app.use(authRouter);
 app.use("/res", reservationRouter);
 

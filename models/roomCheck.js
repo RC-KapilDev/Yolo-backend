@@ -19,7 +19,7 @@ const validAmenities = [
 const roomType = ["basic", "medium", "premium", "luxury"];
 const sex = ["male", "female", "unisex"];
 
-const roomSchema = new mongoose.Schema({
+const roomCheckSchema = new mongoose.Schema({
   roomtype: {
     type: String,
     required: true,
@@ -56,15 +56,15 @@ const roomSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
-  createdAt: {
+  lastCheckedAt: {
     type: Date,
-    default: Date.now,
+    default: null,
   },
 });
 
-const Rooms = mongoose.model("Room", roomSchema);
+const RoomsCheck = mongoose.model("RoomCheck", roomCheckSchema);
 
-function validateRooms(room) {
+function validateRoomsCheck(room) {
   const schema = Joi.object({
     roomtype: Joi.string()
       .required()
@@ -90,4 +90,4 @@ function validateRooms(room) {
   return schema.validate(room);
 }
 
-export { Rooms, validateRooms };
+export { RoomsCheck, validateRoomsCheck };

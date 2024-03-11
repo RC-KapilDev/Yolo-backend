@@ -68,4 +68,17 @@ roomRouter.post("/room", async (req, res) => {
   }
 });
 
+roomRouter.delete("/:roomid", async (req, res) => {
+  try {
+    const room = await Rooms.findByIdAndDelete(req.params.roomid);
+    if (!room) {
+      return res.send(404).json({ message: "Cannot find the ID" });
+    }
+    res.json(room);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 export { roomRouter };
