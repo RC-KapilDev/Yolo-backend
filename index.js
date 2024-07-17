@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import { roomRouter } from "./routes/room.js";
 import { authRouter } from "./routes/auth.js";
 import { reservationRouter } from "./routes/reservation.js";
@@ -15,6 +16,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not Connect To MongoDB"));
 
+app.use(cors());
 app.use(express.json());
 app.use("/yolo", roomRouter);
 app.use("/validate", roomCheckRouter);
